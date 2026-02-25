@@ -1,38 +1,38 @@
 <?php
 session_start();
-include 'koneksi.php';
+include 'config/koneksi.php';
 
-$username = $_POST['username'];
-$password = $_POST['password'];
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-$query = mysqli_query($koneksi, "SELECT * FROM user WHERE username='$username'");
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
+    $password = mysqli_real_escape_string($koneksi, $_POST['password']);
 
-if(mysqli_num_rows($query) > 0){
+    $query = mysqli_query($koneksi, "SELECT * FROM tbuser WHERE username='$username'");
 
-    $data = mysqli_fetch_assoc($query);
+    if (mysqli_num_rows($query) > 0) {
 
-    // DEBUG sementara (hapus nanti)
-    // echo "Password DB: ".$data['password'];
+        $data = mysqli_fetch_assoc($query);
 
-    if($password == $data['password']){
+        if ($password == $data['password']) {
 
-        $_SESSION['id_user'] = $data['id_user'];
-        $_SESSION['username'] = $data['username'];
-        $_SESSION['role'] = $data['role'];
+            $_SESSION['id_user'] = $data['id'];
+            $_SESSION['username'] = $data['username'];
+            $_SESSION['role'] = $data['role'];
 
-        if($data['role'] == "admin"){
-            header("location: admin.php");
-        } 
-        else if($data['role'] == "siswa"){
-            header("location: siswa.php");
+            if ($data['role'] == "Admin") {
+                header("Location: /12rpl1_ujikom_quratu2/admin/admin.php");
+            } 
+            elseif ($data['role'] == "Siswa") {
+                header("Location: /12rpl1_ujikom_quratu2/siswa/siswa.php");
+            }
+            exit();
+
+        } else {
+            echo "Password Salah!";
         }
-        exit();
 
     } else {
-        echo "Password Salah!";
+        echo "Username Tidak Ditemukan!";
     }
-
-} else {
-    echo "Username Tidak Ditemukan!";
 }
 ?>

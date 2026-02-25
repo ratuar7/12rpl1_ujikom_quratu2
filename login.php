@@ -2,32 +2,24 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
-
 <body>
-    <div class="login-box">
-        <h1>FORM LOGIN</h1>
 
-        <form  method="post">
-            
-            <p>Username</p>
-            <input type="text" name="username" required>
+<h2>FORM LOGIN</h2>
 
-            <p>Password</p>
-            <input type="password" name="password" required>
+<form method="POST" action="proses-login.php">
+    
+    <p>Username</p>
+    <input type="text" name="username" required>
 
-            <p>Login Sebagai</p>
-            <select name="level" required>
-                <option value="">-- Pilih Role --</option>
-                <option value="admin">Admin</option>
-                <option value="siswa">Siswa</option>
-            </select>
+    <p>Password</p>
+    <input type="password" name="password" required>
 
-            <br><br>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    <br><br>
+    <input type="submit" value="Login">
+
+</form>
+
 </body>
 </html>
